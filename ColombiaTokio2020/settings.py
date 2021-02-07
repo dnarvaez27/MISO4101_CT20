@@ -17,12 +17,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+import locale
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+4-nclt64f9wwg2c9+#l(0(km*ni^nmz3q)rir0byw74(ywi_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+locale.setlocale(locale.LC_ALL, 'en_US.utf8')
 
 ALLOWED_HOSTS = [
     '*',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'portal',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'ColombiaTokio2020.urls'
@@ -104,9 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Etc/GMT+5'
 
 USE_I18N = True
 
