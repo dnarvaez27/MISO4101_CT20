@@ -141,4 +141,3 @@ USE_TZ = True
 # )
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# >>>>>>> 8e7628e71782c5921add4c7ff0015bbd50e9bf8b
