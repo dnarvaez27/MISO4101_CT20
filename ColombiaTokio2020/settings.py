@@ -1,5 +1,7 @@
 import locale
 import os
+import django_heroku
+
 """
 Django settings for ColombiaTokio2020 project.
 
@@ -140,3 +142,5 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
