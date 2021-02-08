@@ -13,7 +13,7 @@ class DeportistaAdmin(admin.ModelAdmin):
         return f'{obj.user.first_name} {obj.user.last_name}'
 
     def get_lugar_nacimiento(self, obj):
-        return obj.lugarNacimiento
+        return obj.lugar_nacimiento
 
     get_name.short_description = 'Nombre'
     get_lugar_nacimiento.short_description = 'Lugar de Nacimiento'
@@ -36,17 +36,7 @@ class DeporteAdmin(admin.ModelAdmin):
 
 @admin.register(Participacion)
 class ParticipacionAdmin(admin.ModelAdmin):
-    list_display = ('get_deportista', 'get_deporte', 'fecha', 'hora', 'modalidad', 'resultado')
-
-    def get_deportista(self, obj):
-        return obj.deportista_id
-
-    get_deportista.short_description = 'Deportista'
-
-    def get_deporte(self, obj):
-        return obj.deporte_id
-
-    get_deporte.short_description = 'Deporte'
+    list_display = ('deportista', 'deporte', 'fecha', 'hora', 'modalidad', 'resultado')
 
 
 @admin.register(Lugar)
@@ -64,12 +54,12 @@ class ComentarioAdmin(admin.ModelAdmin):
     list_display = ['get_usuario', 'fecha', 'get_participacion']
 
     def get_usuario(self, obj):
-        return obj.usuarioId
+        return obj.usuario_registrado
 
     get_usuario.short_description = 'Usuario'
 
     def get_participacion(self, obj):
-        return obj.videoId.participacion
+        return obj.video.participacion
 
     get_participacion.short_description = 'Participacion'
 

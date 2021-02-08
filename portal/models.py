@@ -16,12 +16,12 @@ class Lugar(models.Model):
 
 class Deportista(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE, primary_key=True, verbose_name='Usuario')
-    fechaNacimiento = models.DateField(verbose_name='Fecha de Nacimiento')
+    fecha_nacimiento = models.DateField(verbose_name='Fecha de Nacimiento')
     peso = models.FloatField(validators=[MinValueValidator(0.0)], help_text='Peso del Deportista')
     estatura = models.FloatField(validators=[MinValueValidator(0.0)], help_text='Estatura del Deportista')
     entrenador = models.CharField(max_length=128, help_text='Entrenador del Deportista')
     imagen = models.URLField(verbose_name='Foto', help_text='URL Foto de Perfil')
-    lugarNacimiento = models.ForeignKey(to=Lugar, on_delete=models.CASCADE)
+    lugar_nacimiento = models.ForeignKey(to=Lugar, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = 'Deportistas'
@@ -57,8 +57,8 @@ class Deporte(models.Model):
 class Participacion(models.Model):
     fecha = models.DateField(verbose_name='Fecha')
     hora = models.TimeField(verbose_name='Hora')
-    deporte_id = models.ForeignKey(Deporte, on_delete=models.CASCADE)
-    deportista_id = models.ForeignKey(Deportista, on_delete=models.CASCADE)
+    deporte = models.ForeignKey(Deporte, on_delete=models.CASCADE)
+    deportista = models.ForeignKey(Deportista, on_delete=models.CASCADE)
     modalidad = models.CharField(max_length=220)
     resultado = models.FloatField(blank=True, null=True)
 
@@ -66,7 +66,7 @@ class Participacion(models.Model):
         verbose_name_plural = 'Participaciones'
 
     def __str__(self) -> str:
-        return f'{self.deporte_id} - {self.deportista_id}'
+        return f'{self.deporte} - {self.deportista}'
 
 
 class Video(models.Model):
@@ -82,12 +82,12 @@ class Video(models.Model):
 
 class Comentario(models.Model):
     texto = models.CharField(max_length=1000)
-    usuarioId = models.ForeignKey(UsuarioRegistrado, on_delete=models.CASCADE)
+    usuario_registrado = models.ForeignKey(UsuarioRegistrado, on_delete=models.CASCADE)
     fecha = models.DateTimeField(null=False)
-    videoId = models.ForeignKey(Video, on_delete=models.CASCADE)
+    video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Comentarios"
 
     def __str__(self) -> str:
-        return f'{self.usuarioId} ({self.fecha})'
+        return f'{self.usuario_registrado} ({self.fecha})'
