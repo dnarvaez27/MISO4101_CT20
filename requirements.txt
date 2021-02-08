@@ -14,5 +14,9 @@ sqlparse==0.4.1
 typing-extensions==3.7.4.3
 whitenoise==5.2.0
 yapf==0.30.0
+<<<<<<< HEAD
 zipp==3.4.0
 django-heroku==0.3.1
+=======
+zipp==3.4.0
+>>>>>>> 8e7628e71782c5921add4c7ff0015bbd50e9bf8b
