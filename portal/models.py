@@ -67,7 +67,7 @@ class Video(models.Model):
 
 class Comentario(models.Model):
     texto = models.CharField(max_length=1000)
-    usuarioId = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    usuarioId = models.ForeignKey(Deportista, on_delete=models.CASCADE)
     fecha = models.DateTimeField(null=False)
     videoId = models.ForeignKey(Video, on_delete=models.CASCADE)
 
