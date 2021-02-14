@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .logic import signin as do_signup
+from .serializers import UserSerializer
 
 
 # Create your views here.
@@ -12,6 +13,9 @@ def signin(request):
     username = request.data.get('username', '').lower()
     password = request.data.get('password', None)
 
-    token = do_signup(request, username, password)
+    user, token = do_signup(request, username, password)
 
-    return Response({'token': token}, status=status.HTTP_200_OK)
+    return Response({
+        'token': token,
+        'data': UserSerializer(user).data,
+    }, status=status.HTTP_200_OK)
