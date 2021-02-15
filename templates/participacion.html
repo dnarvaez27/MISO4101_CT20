@@ -15,7 +15,7 @@
     
     .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
         grid-gap: 2em;
     }
     
@@ -68,9 +68,11 @@
                 <img src="http://lorempixel.com/300/200/" alt="Desciption">
                 <div class="details">
                     <span class="higher">{{ deportista.grouper }}</span>
-                    {% for participacion in deportista.list %}
-                        <span>{{ participacion.deporte.icono }}</span>
-                    {% endfor %}
+                    <span>
+                        {% for participacion in deportista.list %}
+                            {{ participacion.deporte.icono }}
+                        {% endfor %}
+                    </span>
                 </div>
             </div>
         {% endfor %}
