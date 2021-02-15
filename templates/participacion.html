@@ -49,12 +49,28 @@
 
 <body>
     <div class="cards">
-        {% for index in object %}
+         {% comment %}{% regroup object by deportista as deportista_list %}
+            <ul>
+                {% for deportista in deportista_list %}
+                    <li>{{ deportista.grouper}}
+                        <ul>
+                        {% for participacion in deportista.list %}
+                            <li>{{ participacion.deporte.icono }}</li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>{% endcomment %}
+
+        {% regroup object by deportista as deportista_list %}
+        {% for deportista in deportista_list %}
             <div class="card">
                 <img src="http://lorempixel.com/300/200/" alt="Desciption">
                 <div class="details">
-                    <span class="higher">{{ index.deportista }}</span>
-                    <span>{{ index.deporte.icono }} - {{ index.deporte }}</span>
+                    <span class="higher">{{ deportista.grouper }}</span>
+                    {% for participacion in deportista.list %}
+                        <span>{{ participacion.deporte.icono }}</span>
+                    {% endfor %}
                 </div>
             </div>
         {% endfor %}
