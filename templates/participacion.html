@@ -12,7 +12,16 @@
     * {
         box-sizing: border-box;
     }
-    
+
+    .header {
+      padding: 1px;
+      text-align: center;
+      background: #1abc9c;
+      color: white;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
     .cards {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
@@ -28,6 +37,10 @@
     .card img {
         width: 100%;
         object-fit: contain;
+    }
+
+    body {
+       margin: 0;
     }
     
     .card .details {
@@ -48,24 +61,15 @@
 </style>
 
 <body>
+    <div class="header">
+      <h1>Listado de deportistas</h1>
+    </div>
     <div class="cards">
-         {% comment %}{% regroup object by deportista as deportista_list %}
-            <ul>
-                {% for deportista in deportista_list %}
-                    <li>{{ deportista.grouper}}
-                        <ul>
-                        {% for participacion in deportista.list %}
-                            <li>{{ participacion.deporte.icono }}</li>
-                        {% endfor %}
-                        </ul>
-                    </li>
-                {% endfor %}
-            </ul>{% endcomment %}
 
         {% regroup object by deportista as deportista_list %}
         {% for deportista in deportista_list %}
             <div class="card">
-                <img src="http://lorempixel.com/300/200/" alt="Desciption">
+                <img src="{{deportista.grouper.imagen}}" alt="Foto">
                 <div class="details">
                     <span class="higher">{{ deportista.grouper }}</span>
                     <span>
