@@ -27,7 +27,7 @@ SECRET_KEY = '+4-nclt64f9wwg2c9+#l(0(km*ni^nmz3q)rir0byw74(ywi_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+# locale.setlocale(locale.LC_ALL, 'en_US.utf8')
 
 ALLOWED_HOSTS = [
     '*',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'portal',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -66,7 +67,7 @@ ROOT_URLCONF = 'ColombiaTokio2020.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,11 +90,11 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
+        'NAME': 'postgres',
+        'USER': 'taniadiaz',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -145,3 +146,10 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
