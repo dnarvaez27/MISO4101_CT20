@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -18,6 +19,10 @@ def signin(request):
         }, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_403_FORBIDDEN)
+
+
+def login_user(request):
+    return render(request, 'portal/login.html')
 
 
 @api_view(["POST"])
