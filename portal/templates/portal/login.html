@@ -9,16 +9,16 @@
         function sendForm() {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/auth/signin",
+                url: "http://localhost:8000/auth/login",
                 data: JSON.stringify({'username': $('#username').val(), 'password': $('#password').val()}),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
-                    print(data)
                     if (data.message == "ok") {
+                        alert("usuario logeado: "+ $('#username').val());
                         window.location = "http://localhost:8000/";
                     } else {
-                        alert("function");
+                        alert(data.message);
                     }
                 },
                 failure: function (errMsg) {
@@ -28,14 +28,15 @@
             return false;
         }
     </script>
-
 </head>
 <body>
+<label id="message"></label><br /><br />
+
 <form method="post" action="" onsubmit="return sendForm();">
     Usuario<input id="username" name="username" type="text" placeholder="Usuario"/><br/>
     Contraseña<input id="password" name="password" type="password"/><br/>
     <input id="send" name="send" type="submit" value="login"/><br/>
-    <a href="http://localhost:8000/">Cancelar</a>
+    <a href="http://localhost:8000/gallery/viewImages">Cancelar</a>
 </form>
 </body>
 </html>
