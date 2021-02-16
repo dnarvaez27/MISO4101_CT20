@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <script>
+        const TOKEN_KEY = 'token';
+        const USER_KEY = 'user';
+
+        function goToGallery() {
+            window.location = `${window.location.origin}/gallery/viewImages`;
+        }
+
+        if (localStorage.getItem(TOKEN_KEY)) {
+            goToGallery();
+        }
+
         function sendForm() {
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8000/auth/login",
-                data: JSON.stringify({'username': $('#username').val(), 'password': $('#password').val()}),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    if (data.message == "ok") {
-                        alert("usuario logeado: "+ $('#username').val());
-                        window.location = "http://localhost:8000/";
-                    } else {
-                        alert(data.message);
-                    }
+            fetch('/auth/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                failure: function (errMsg) {
-                    alert("Se presentó un error al intentar el login");
+                body: JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                }),
+            })
+            .then((data) => data.json())
+            .then((data) => {
+                if(data.error) {
+                    throw Error(data.error);
                 }
+                localStorage.setItem(TOKEN_KEY, data.data);
+                localStorage.setItem(USER_KEY, data.user);
+                goToGallery();
+            })
+            .catch((errMsg) => {
+                alert(`Se presentó un error al intentar el login. ${errMsg.message}`);
             });
-            return false;
         }
     </script>
-</head>
-<body>
-<label id="message"></label><br /><br />
 
-<form method="post" action="" onsubmit="return sendForm();">
-    Usuario<input id="username" name="username" type="text" placeholder="Usuario"/><br/>
-    Contraseña<input id="password" name="password" type="password"/><br/>
-    <input id="send" name="send" type="submit" value="login"/><br/>
-    <a href="http://localhost:8000/gallery/viewImages">Cancelar</a>
-</form>
+</head>
+
+<body>
+    <form method="POST" action="" onsubmit="sendForm(); return false">
+        Usuario:<input id="username" name="username" type="text" placeholder="Usuario" /><br />
+        Contraseña:<input id="password" name="password" type="password" /><br />
+        <input id="send" name="send" type="submit" /><br />
+        <a href="/">Cancelar</a>
+    </form>
 </body>
+
 </html>
