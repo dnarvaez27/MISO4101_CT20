@@ -74,18 +74,21 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: $('#username').val(),
-                    password: $('#password').val()
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
                 }),
             })
                 .then((data) => data.json())
                 .then((data) => {
+                    console.log(data);
                     if (data.error) {
                         throw Error(data.error);
                     }
-                    localStorage.setItem(TOKEN_KEY, data.data);
-                    localStorage.setItem(USER_KEY, data.user);
-                    goToGallery();
+                    if (data.token) {
+                        localStorage.setItem(TOKEN_KEY, data.data);
+                        localStorage.setItem(USER_KEY, data.user);
+                        goToGallery();
+                    }
                 })
                 .catch((errMsg) => {
                     alert(`Se presentó un error al intentar el login. ${errMsg.message}`);
