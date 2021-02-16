@@ -26,7 +26,7 @@ def add_user(request):
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/adduser/')
+            return HttpResponseRedirect('/auth/login/')
     else:
         form = UsuarioForm()
     return render(request, 'user_form.html', {'form': form})
