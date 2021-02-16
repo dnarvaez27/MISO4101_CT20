@@ -1,4 +1,3 @@
-import locale
 import os
 import django_heroku
 """
@@ -13,7 +12,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +24,7 @@ SECRET_KEY = '+4-nclt64f9wwg2c9+#l(0(km*ni^nmz3q)rir0byw74(ywi_&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-locale.setlocale(locale.LC_ALL, 'en_US.utf8')
+# locale.setlocale(locale.LC_ALL, 'en_US.utf8')
 
 ALLOWED_HOSTS = [
     '*',
@@ -46,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'portal'
+    'portal',
 ]
 
 MIDDLEWARE = [
@@ -76,7 +74,7 @@ ROOT_URLCONF = 'ColombiaTokio2020.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -153,3 +151,10 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+}
