@@ -17,7 +17,6 @@ class Lugar(models.Model):
 
 class Deportista(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE, primary_key=True, verbose_name='Usuario')
-    nombre = models.CharField(max_length=300)
     fecha_nacimiento = models.DateField(verbose_name='Fecha de Nacimiento')
     peso = models.FloatField(validators=[MinValueValidator(0.0)], help_text='Peso del Deportista')
     estatura = models.FloatField(validators=[MinValueValidator(0.0)], help_text='Estatura del Deportista')
