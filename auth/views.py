@@ -1,11 +1,13 @@
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from .logic import signin as do_signup, signout as do_signout
-from .serializers import UserSerializer
+from .serializers import UserSerializer, RegisterSerializer
+from django.contrib.auth.models import User
 
 
 @api_view(["POST"])
@@ -32,3 +34,9 @@ def signout(request):
 @csrf_exempt
 def login_view(request):
     return render(request, "portal/login.html")
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer

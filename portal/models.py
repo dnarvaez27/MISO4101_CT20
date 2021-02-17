@@ -16,6 +16,7 @@ class Lugar(models.Model):
 
 
 class Deportista(models.Model):
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE, primary_key=True, verbose_name='Usuario')
     nombre = models.CharField(max_length=300)
     fecha_nacimiento = models.DateField(verbose_name='Fecha de Nacimiento')
     peso = models.FloatField(validators=[MinValueValidator(0.0)], help_text='Peso del Deportista')
@@ -31,26 +32,30 @@ class Deportista(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
 
-class UsuarioRegistrado(models.Model):
-    login = models.CharField(max_length=100)
-    password = models.CharField(max_length=150)
-    first_name = models.CharField(max_length=300)
-    last_name = models.CharField(max_length=300)
-    email = models.CharField(max_length=200)
-    phoneNum = models.CharField(max_length=30)
+# class UsuarioRegistrado(models.Model):
+#    login = models.CharField(max_length=100)
+#    password = models.CharField(max_length=150)
+#    first_name = models.CharField(max_length=300)
+#    last_name = models.CharField(max_length=300)
+#    email = models.CharField(max_length=200)
+#    phoneNum = models.CharField(max_length=30)
 
-    class Meta:
-        verbose_name_plural = 'Usuarios Registrados'
+#    class Meta:
+#        verbose_name_plural = 'Usuarios Registrados'
 
-    def __str__(self) -> str:
-        return f'{self.first_name} {self.last_name}'
+#    def __str__(self) -> str:
+#        return f'{self.first_name} {self.last_name}'
 
 
-class UsuarioForm(ModelForm):
-    class Meta:
-        model = UsuarioRegistrado
-        fields = ['login', 'password', 'first_name', 'last_name', 'email', 'phoneNum']
+# class UsuarioForm(ModelForm):
+#    class Meta:
+#        model = UsuarioRegistrado
+#        fields = ['login', 'password', 'first_name', 'last_name', 'email', 'phoneNum']
 
+#class UserForm(ModelForm):
+#    class Meta:
+#        model = User
+#        fields = ['username', 'password', 'first_name', 'last_name', 'email']
 
 class Deporte(models.Model):
     nombre = models.CharField(max_length=220)
@@ -93,7 +98,7 @@ class Video(models.Model):
 
 class Comentario(models.Model):
     texto = models.CharField(max_length=1000)
-    usuario_registrado = models.ForeignKey(UsuarioRegistrado, on_delete=models.CASCADE)
+    usuario_registrado = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateTimeField(null=False)
     video = models.ForeignKey(Video, on_delete=models.CASCADE)
 
