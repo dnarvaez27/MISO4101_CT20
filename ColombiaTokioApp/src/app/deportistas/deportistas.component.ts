@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Deportista } from '../deportista';
+import { DeportistaService } from '../deportista.service';
 
 @Component({
   selector: 'app-deportistas',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeportistasComponent implements OnInit {
 
-  constructor() { }
+  deportistas: Deportista[];
+
+  selectedDeportista: Deportista;
+
+  constructor(private deportistaService: DeportistaService) { }
 
   ngOnInit(): void {
+    this.getDeportistas();
+  }
+
+  onSelect(deportista: Deportista): void {
+    this.selectedDeportista = deportista;
+  }
+
+  getDeportistas(): void{
+    this.deportistaService.getDeportistas().subscribe(deportistas => this.deportistas = deportistas);
   }
 
 }
