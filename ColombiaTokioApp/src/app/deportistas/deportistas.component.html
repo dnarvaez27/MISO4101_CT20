@@ -1,11 +1,7 @@
 <h2>Deportistas</h2>
 <ul class = "deportistas">
-  <li *ngFor="let deportista of deportistas" [class.selected]="deportista === selectedDeportista" (click)="onSelect(deportista)">
-    <label>{{deportista.user}}</label>
+  <li *ngFor="let deportista of deportistas" (click) = "onSelect(deportista)">
     <img src = "{{deportista.imagen}}" width = "100%" height = "100%" />
   </li>
 </ul>
-<br />
-<img src="{{selectedDeportista.imagen}}" width="40%" height="40%" />
-<h2>{{selectedDeportista.user | uppercase}}</h2>
 <app-deportistas-detail [deportista]="selectedDeportista"></app-deportistas-detail>
