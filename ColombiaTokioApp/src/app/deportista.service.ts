@@ -13,4 +13,9 @@ export class DeportistaService {
   getDeportistas(): Observable<Deportista[]>{
     return of(DEPORTISTAS);
   }
+
+  getDeportista(id: number): Observable<Deportista> {
+    return of(DEPORTISTAS.find(deportista => deportista.id === id));  	
+  }
+  
 }

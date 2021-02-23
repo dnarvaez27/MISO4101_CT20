@@ -19,10 +19,6 @@ export class DeportistasComponent implements OnInit {
     this.getDeportistas();
   }
 
-  onSelect(deportista: Deportista): void {
-    this.selectedDeportista = deportista;
-  }
-
   getDeportistas(): void{
     this.deportistaService.getDeportistas().subscribe(deportistas => this.deportistas = deportistas);
   }
